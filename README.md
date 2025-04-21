@@ -1,4 +1,4 @@
-# DOOM style 3d (raycasting) game in Python (based on Wolfenstein 3d)
+# Dungeon game baseado em DOOM clone style 3d (raycasting) in Python
 
 Control: 'WASD' + mouse
 
