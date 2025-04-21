@@ -2,4 +2,4 @@
 
 Control: 'WASD' + mouse
 
-![doom](ft.jpg)
+![doom](/ft.jpg)
