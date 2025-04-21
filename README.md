@@ -2,4 +2,5 @@
 
 Control: 'WASD' + mouse
 
-![doom](/ft.jpg)
+
+![Imagem do jogo](ft.png)
