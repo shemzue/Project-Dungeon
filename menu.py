@@ -41,17 +41,11 @@ def draw_menu():
     SCREEN.fill(BLACK)
 
     # Título
-<<<<<<< HEAD
     draw_text("Criação de Personagem", BIG_FONT, WHITE, SCREEN, 80, 10)
 
     # Nome
     draw_text("Nome:", FONT, WHITE, SCREEN, 80, 50)
-=======
-    draw_text("Criação de Personagem", BIG_FONT, WHITE, SCREEN, 80, 20)
 
-    # Nome
-    draw_text("Nome:", FONT, WHITE, SCREEN, 80, 60)
->>>>>>> 034391dde53b17231855bacc11ab115141792795
     pygame.draw.rect(SCREEN, LIGHT_BLUE if active_input else WHITE, input_rect, 2)
 
     # Garantir texto visível na caixa

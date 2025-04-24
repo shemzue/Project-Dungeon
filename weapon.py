@@ -101,7 +101,4 @@ class Weapon(AnimatedSprite):
     def update(self):
         self.check_animation_time()
         self.animate_shot()
-<<<<<<< HEAD
-=======
 
->>>>>>> 034391dde53b17231855bacc11ab115141792795

@@ -16,15 +16,11 @@ class ObjectHandler:
         self.npc_positions = {}
 
         # spawn npc
-<<<<<<< HEAD
-        self.enemies = 5  # npc count #contador de npc
-        self.npc_types = [CacoDemonNPC]
-=======
-        self.enemies = 10  # npc count #contador de npc
-        self.npc_types = [SoldierNPC]
->>>>>>> 034391dde53b17231855bacc11ab115141792795
+        self.enemies = 15  # npc count #contador de npc
+        self.npc_types = [SoldierNPC, CacoDemonNPC]
+
         """ self.npc_types = [SoldierNPC, CacoDemonNPC, CyberDemonNPC] """ #parametro para colocar os npcs
-        self.weights = [100]
+        self.weights = [80,20]
         """ self.weights = [70, 20, 10] """ #parametro para definir as proporções de npc presentes no mapa
         self.restricted_area = {(i, j) for i in range(10) for j in range(10)}
         self.spawn_npc()
