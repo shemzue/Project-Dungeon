@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 import os
 os.environ['SDL_VIDEO_CENTERED'] = '1'  # Centraliza a janela
 
+=======
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
 import pygame as pg
 import sys
 from settings import *
@@ -24,29 +27,47 @@ class_to_weapon = {
     "Atirador": "shotgun"
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
 class Game:
     def __init__(self, player_name, weapon_type):
         self.player_name = player_name
         self.weapon_type = weapon_type
         pg.init()
+<<<<<<< HEAD
         pg.mouse.set_visible(False)  # Mouse invisível
         # Pega a resolução atual do monitor
         info = pg.display.Info()  # Informações sobre o monitor
         monitor_width, monitor_height = info.current_w, info.current_h
         self.screen = pg.display.set_mode((monitor_width, monitor_height), pg.RESIZABLE)  # Janela redimensionável
         pg.display.set_caption("Dungeon Game")  # Só pra dar um nome à janela
+=======
+        pg.mouse.set_visible(False)
+        self.screen = pg.display.set_mode(RES)
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
         pg.event.set_grab(True)
         self.clock = pg.time.Clock()
         self.delta_time = 1
         self.global_trigger = False
         self.global_event = pg.USEREVENT + 0
         pg.time.set_timer(self.global_event, 40)
+<<<<<<< HEAD
         self.paused = False
+=======
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
         self.new_game()
 
     def new_game(self):
         self.player = Player(self)
         self.map = Map(self)
+<<<<<<< HEAD
+=======
+        self.player = Player(self)
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
         self.object_renderer = ObjectRenderer(self)
         self.raycasting = RayCasting(self)
         self.object_handler = ObjectHandler(self)
@@ -56,6 +77,7 @@ class Game:
         pg.mixer.music.play(-1)
 
     def update(self):
+<<<<<<< HEAD
         if not self.paused:
             self.player.update()
             self.raycasting.update()
@@ -106,10 +128,27 @@ class Game:
                         elif selected == 2:
                             pg.quit()
                             sys.exit()
+=======
+        self.player.update()
+        self.raycasting.update()
+        self.object_handler.update()
+        self.weapon.update()
+        pg.display.flip()
+        self.delta_time = self.clock.tick(FPS)
+        pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
+
+    def draw(self):
+        # self.screen.fill('black')
+        self.object_renderer.draw()
+        self.weapon.draw()
+        # self.map.draw()
+        # self.player.draw()
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
 
     def check_events(self):
         self.global_trigger = False
         for event in pg.event.get():
+<<<<<<< HEAD
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
@@ -132,6 +171,14 @@ class Game:
                 self.global_trigger = True
             if not self.paused:
                 self.player.single_fire_event(event)
+=======
+            if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
+                pg.quit()
+                sys.exit()
+            elif event.type == self.global_event:
+                self.global_trigger = True
+            self.player.single_fire_event(event)
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
 
     def run(self):
         while True:
@@ -139,6 +186,10 @@ class Game:
             self.update()
             self.draw()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
 if __name__ == '__main__':
     player_info = menu_loop()
     print("Iniciando jogo com:", player_info)

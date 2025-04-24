@@ -44,11 +44,18 @@ class Player:
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.shot and not self.game.weapon.reloading:
+<<<<<<< HEAD
                 self.game.sound.play_weapon_sound()
                 self.shot = True
                 self.game.weapon.reloading = True
 
 
+=======
+                self.game.sound.shotgun.play()
+                self.shot = True
+                self.game.weapon.reloading = True
+
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
     def movement(self):
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)

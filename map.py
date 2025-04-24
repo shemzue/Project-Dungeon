@@ -1,6 +1,9 @@
 import pygame as pg
+<<<<<<< HEAD
 from settings import *
 
+=======
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
 
 _ = False
 mini_map = [
@@ -56,6 +59,7 @@ class Map:
 
     def draw(self):
         [pg.draw.rect(self.game.screen, 'darkgray', (pos[0] * 100, pos[1] * 100, 100, 100), 2)
+<<<<<<< HEAD
          for pos in self.world_map]
         
 
@@ -88,3 +92,6 @@ class Map:
 
         
     
+=======
+         for pos in self.world_map]
+>>>>>>> 034391dde53b17231855bacc11ab115141792795
