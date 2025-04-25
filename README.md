@@ -11,9 +11,11 @@ Menu:
 ![Imagem do jogo](sreenshots/menu.png)
 
 
-# Project Dungeon
+# In-Dungeon-DOOM
 
-Um jogo estilo Doom retrô em Python, com raycasting, NPCs com inteligência artificial, sistema de armas por classe (mago, guerreiro, atirador), sons personalizados e menu interativo. Desenvolvido com Pygame.
+Este é um jogo de tiro em primeira pessoa (FPS) com elementos de RPG, inspirado na imersão apocalíptica do clássico retrô Doom. O jogo oferece uma experiência nostálgica com visual graficos em pixel art pseudo 3D gerado por raycasting.
+
+O jogador pode escolher entre três classes distintas — mago, guerreiro ou atirador — cada uma com armas e estilos de combate únicos. O jogo conta com sons personalizados para cada arma, mini mapa dinâmico para navegação em tempo real, e um sistema simples de menu para facilitar a seleção e imersão no universo do jogo.
 
 ---
 
@@ -37,28 +39,27 @@ Após essa primeira execução, use um dos métodos abaixo para rodar o jogo nov
 
 ---
 
-### 2. Execução manual (caso o ambiente virtual já esteja criado)
+### 2. Execução manual com o ambiente virtual já criado
 
 Ative o ambiente virtual e execute o jogo:
 
-**No PowerShell (Windows):**
+**Diretamente com o Python do ambiente:**
+
+```powershell
+.venv\Scripts\python.exe main.py
+```
+
+**ou no PowerShell (Windows):**
 
 ```powershell
 .venv\Scripts\Activate.ps1
 python main.py
 ```
 
-**Ou diretamente com o Python do ambiente:**
-
-```powershell
-.venv\Scripts\python.exe main.py
-```
-
----
 
 ## Jogabilidade
 
-Ao iniciar o jogo, o menu permite inserir o nome do jogador e escolher uma das classes disponíveis. Cada classe possui uma arma e sons próprios.
+Ao iniciar o jogo, o menu permite inserir o nome do jogador e escolher uma das classes disponíveis. Cada classe possui uma arma e sons próprios. Para melhorar jogabilidade é recomendado colocar o jogo em tela cheia no inicio. 
 
 ### Classes disponíveis:
 
@@ -101,7 +102,7 @@ Project-Dungeon/
 - Python 3.10 ou superior
 - Pygame
 
-Para instalar manualmente as dependências:
+Para instalar manualmente as dependências(se nao tiver conseguido setup):
 
 ```bash
 pip install -r requirements.txt
@@ -111,15 +112,10 @@ pip install -r requirements.txt
 
 ## Dicas e Problemas Comuns
 
-- Se o PowerShell bloquear o script de ativação, execute:
+- A biblioteca pygame pode ter alguns conflitos de compatibilidade dependendo da versão do python no sistema. Possuir a biblioteca instalada não garente compatibilidade com a versão usada no jogo portando é necessario a criação de um ambiente virtual integrado no diretorio do projeto, a IDE pode fazer esse processo automaticamente mas é fortemente recomendado a execução correta do **setup.py** para desburocratizar esse processo,  
 
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+- Lembrando que para rodar o jogo novamente, main.py isolado não vai funcionar é preciso especificar o ambiente venv
 ```
-
-- Se o jogo não abrir novamente após rodar o `setup.py`, execute diretamente com:
-
-```powershell
 .venv\Scripts\python.exe main.py
 ```
 
@@ -130,13 +126,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 Essas são sugestões de implementação para evolução do jogo:
 
 - **Algoritmo de geração procedural de mapas**  
-  Usar algoritmos como *Perlin Noise* ou *cellular automata* para criar mapas diferentes a cada partida, com paredes e obstáculos responsivos ao tamanho da janela.
+  Usar algoritmos para criar mapas diferentes a cada partida, com paredes e obstáculos responsivos.
 
 - **Sistema de objetivos e troca de fases**  
   Criar um "goal" no mapa (por exemplo, uma saída ou item especial). Ao alcançá-lo, carregar um novo mapa ou reiniciar com mais dificuldade.
 
 - **Melhorar menu e configurações**  
-  Incluir opções de volume, resolução, modo tela cheia e navegação por teclado/mouse.
+  Incluir opções de volume, resolução, modo tela cheia.
 
 - **Textura do chão com iluminação realista**  
   Aplicar interpolação de luz com base na distância da fonte, adaptando o sombreamento no `raycasting` para o piso.
@@ -157,7 +153,7 @@ Essas são sugestões de implementação para evolução do jogo:
   Limitar ataques com recursos que se esgotam e recarregam, como munição para armas ou barra de mana para magias.
 
 - **Novos tipos de inimigos e classes de jogador**  
-  Introduzir variedade de comportamentos e habilidades, com inimigos de longo alcance, tanques, evasivos, etc.
+  Introduzir variedade de comportamentos e habilidades, com inimigos de longo alcance, evasivos, etc.
 
 - **Armadilhas e debuffs**  
   Criar áreas que causam lentidão, dano ao longo do tempo, ou que afetam temporariamente o jogador.
@@ -178,6 +174,10 @@ Essas são sugestões de implementação para evolução do jogo:
 
 ## Créditos e Inspiração
 
-Este projeto foi inspirado nos tutoriais e ideias apresentadas no canal **Coder Space**, que serviram como base para a estrutura de raycasting e organização do jogo.
+Este projeto foi inspirado nas ideias apresentadas no canal **Coder Space**, como base para a estrutura de raycasting e organização do jogo.
 
-Todos os **designs e artes em pixel** foram criados com o auxílio do **ChatGPT como ferramenta criativa**, desde a concepção visual dos personagens até a composição dos elementos gráficos do cenário.
+Os **designs e pixel arts** foram criadas com o auxílio de geração de imagem **ChatGPT**, bem como concept arts de mobs e desing de armas.
+
+
+--- **SAULO**  
+
