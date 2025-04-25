@@ -7,7 +7,7 @@ class ObjectRenderer:
         self.game = game
         self.screen = game.screen
         self.wall_textures = self.load_wall_textures()
-        self.sky_image = self.get_texture('resources/textures/sky.png', (WIDTH, HALF_HEIGHT))
+        self.sky_image = self.get_texture('resources/textures/red.png', (WIDTH, HALF_HEIGHT))
         self.sky_offset = 0
         self.blood_screen = self.get_texture('resources/textures/blood_screen.png', RES)
         self.digit_size = 90

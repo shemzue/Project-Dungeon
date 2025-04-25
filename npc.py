@@ -1,49 +1,52 @@
-from sprite_object import *
-from random import randint, random
+from sprite_object import *  # Importa objetos e funções relacionadas a sprites
+from random import randint, random  # Importa funções para gerar números aleatórios
 
-
+# Classe base de NPCs
 class NPC(AnimatedSprite):
     def __init__(self, game, path='resources/sprites/npc/zumbi/0.png', pos=(10.5, 5.5),
                  scale=0.6, shift=0.38, animation_time=180):
         super().__init__(game, path, pos, scale, shift, animation_time)
+
+        # Carrega as animações de diferentes estados do NPC
         self.attack_images = self.get_images(self.path + '/attack')
         self.death_images = self.get_images(self.path + '/death')
         self.idle_images = self.get_images(self.path + '/idle')
         self.pain_images = self.get_images(self.path + '/pain')
         self.walk_images = self.get_images(self.path + '/walk')
 
-        self.attack_dist = randint(1, 1)
-        self.speed = 0.02
-        self.size = 30
-        self.health = 100
-        self.attack_damage = 10
-        self.accuracy = 0.15
-        self.alive = True
-        self.pain = False
-        self.ray_cast_value = False
-        self.frame_counter = 0
-        self.player_search_trigger = False
+        # Propriedades do NPC
+        self.attack_dist = randint(1, 1)  # Distância para atacar
+        self.speed = 0.02  # Velocidade de movimento
+        self.size = 30  # Tamanho usado para colisão
+        self.health = 100  # Vida
+        self.attack_damage = 10  # Dano causado
+        self.accuracy = 0.15  # Precisão ao atacar
+        self.alive = True  # Status de vida
+        self.pain = False  # Se está sofrendo dano
+        self.ray_cast_value = False  # Visão do jogador
+        self.frame_counter = 0  # Contador de frames da animação
+        self.player_search_trigger = False  # Se já viu o jogador antes
 
     def update(self):
-        self.check_animation_time()
-        self.get_sprite()
-        self.run_logic()
-        # self.draw_ray_cast()
+        self.check_animation_time()  # Verifica o tempo para atualizar animações
+        self.get_sprite()  # Atualiza sprite atual
+        self.run_logic()  # Executa a lógica do NPC
 
     def check_wall(self, x, y):
-        return (x, y) not in self.game.map.world_map
+        return (x, y) not in self.game.map.world_map  # Verifica se posição está livre
 
     def check_wall_collision(self, dx, dy):
+        # Movimenta apenas se não houver parede
         if self.check_wall(int(self.x + dx * self.size), int(self.y)):
             self.x += dx
         if self.check_wall(int(self.x), int(self.y + dy * self.size)):
             self.y += dy
 
     def movement(self):
+        # Move o NPC em direção ao jogador usando pathfinding
         next_pos = self.game.pathfinding.get_path(self.map_pos, self.game.player.map_pos)
         next_x, next_y = next_pos
 
-        # pg.draw.rect(self.game.screen, 'blue', (100 * next_x, 100 * next_y, 100, 100))
         if next_pos not in self.game.object_handler.npc_positions:
             angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
             dx = math.cos(angle) * self.speed
@@ -54,21 +57,22 @@ class NPC(AnimatedSprite):
         if self.animation_trigger:
             self.game.sound.npc_shot.play()
             if random() < self.accuracy:
-                self.game.player.get_damage(self.attack_damage)
+                self.game.player.get_damage(self.attack_damage)  # Aplica dano se acertar
 
     def animate_death(self):
         if not self.alive:
             if self.game.global_trigger and self.frame_counter < len(self.death_images) - 1:
                 self.death_images.rotate(-1)
                 self.image = self.death_images[0]
-                self.frame_counter += 1
+                self.frame_counter += 1  # Roda animação de morte
 
     def animate_pain(self):
-        self.animate(self.pain_images)
+        self.animate(self.pain_images)  # Roda animação de dor
         if self.animation_trigger:
             self.pain = False
 
     def check_hit_in_npc(self):
+        # Verifica se o jogador acertou o NPC
         if self.ray_cast_value and self.game.player.shot:
             if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
                 self.game.sound.npc_pain.play()
@@ -111,9 +115,10 @@ class NPC(AnimatedSprite):
 
     @property
     def map_pos(self):
-        return int(self.x), int(self.y)
+        return int(self.x), int(self.y)  # Posição atual do NPC no mapa
 
     def ray_cast_player_npc(self):
+        # Algoritmo de raycasting do NPC ao jogador
         if self.game.player.map_pos == self.map_pos:
             return True
 
@@ -124,16 +129,13 @@ class NPC(AnimatedSprite):
         x_map, y_map = self.game.player.map_pos
 
         ray_angle = self.theta
-
         sin_a = math.sin(ray_angle)
         cos_a = math.cos(ray_angle)
 
-        # horizontals
+        # Interseções horizontais
         y_hor, dy = (y_map + 1, 1) if sin_a > 0 else (y_map - 1e-6, -1)
-
         depth_hor = (y_hor - oy) / sin_a
         x_hor = ox + depth_hor * cos_a
-
         delta_depth = dy / sin_a
         dx = delta_depth * cos_a
 
@@ -149,12 +151,10 @@ class NPC(AnimatedSprite):
             y_hor += dy
             depth_hor += delta_depth
 
-        # verticals
+        # Interseções verticais
         x_vert, dx = (x_map + 1, 1) if cos_a > 0 else (x_map - 1e-6, -1)
-
         depth_vert = (x_vert - ox) / cos_a
         y_vert = oy + depth_vert * sin_a
-
         delta_depth = dx / cos_a
         dy = delta_depth * sin_a
 
@@ -173,26 +173,30 @@ class NPC(AnimatedSprite):
         player_dist = max(player_dist_v, player_dist_h)
         wall_dist = max(wall_dist_v, wall_dist_h)
 
+        # Verifica se há linha de visão livre até o jogador
         if 0 < player_dist < wall_dist or not wall_dist:
             return True
         return False
 
     def draw_ray_cast(self):
+        # Função para debug: desenha o raio entre NPC e jogador
         pg.draw.circle(self.game.screen, 'red', (100 * self.x, 100 * self.y), 15)
         if self.ray_cast_player_npc():
             pg.draw.line(self.game.screen, 'orange', (100 * self.game.player.x, 100 * self.game.player.y),
                          (100 * self.x, 100 * self.y), 2)
 
+# Subclasses de NPCs com diferentes atributos
 
 class ZumbiNPC(NPC):
     def __init__(self, game, path='resources/sprites/npc/zumbi/0.png', pos=(10.5, 5.5),
                  scale=0.6, shift=0.38, animation_time=180):
         super().__init__(game, path, pos, scale, shift, animation_time)
 
-class CacoDemonNPC(NPC):
-    def __init__(self, game, path='resources/sprites/npc/caco_demon/0.png', pos=(10.5, 6.5),
+class GoblinNPC(NPC):
+    def __init__(self, game, path='resources/sprites/npc/goblin/0.png', pos=(10.5, 6.5),
                  scale=0.7, shift=0.27, animation_time=250):
         super().__init__(game, path, pos, scale, shift, animation_time)
+        # Goblin é mais rápido e mais forte
         self.attack_dist = 1.0
         self.health = 150
         self.attack_damage = 25
@@ -203,29 +207,9 @@ class CyberDemonNPC(NPC):
     def __init__(self, game, path='resources/sprites/npc/cyber_demon/0.png', pos=(11.5, 6.0),
                  scale=1.0, shift=0.04, animation_time=210):
         super().__init__(game, path, pos, scale, shift, animation_time)
+        # Cyber Demon é um boss: grande, forte, de longo alcance
         self.attack_dist = 6
         self.health = 350
         self.attack_damage = 15
         self.speed = 0.055
         self.accuracy = 0.25 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

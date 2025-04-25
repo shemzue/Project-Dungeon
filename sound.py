@@ -6,7 +6,7 @@ class Sound:
         pg.mixer.init()
         self.path = 'resources/sound/'
 
-        # Sons de armas
+        # Sons das armas
         self.weapon_sounds = {
             'fireball': pg.mixer.Sound(self.path + 'fireball.wav'),
             'slash': pg.mixer.Sound(self.path + 'slash.wav'),
