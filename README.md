@@ -3,7 +3,7 @@
 Control: 'WASD' + mouse
 
 
-![Imagem do jogo](ft.png)
+![Imagem do jogo](/screenshot/imagem_game.png)
 
 
 # Project Dungeon
