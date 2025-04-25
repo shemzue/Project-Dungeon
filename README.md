@@ -6,6 +6,11 @@ Control: 'WASD' + mouse
 ![Imagem do jogo](sreenshots/imagem_game.png)
 
 
+Menu:
+
+![Imagem do jogo](sreenshots/menu.png)
+
+
 # Project Dungeon
 
 Um jogo estilo Doom retrô em Python, com raycasting, NPCs com inteligência artificial, sistema de armas por classe (mago, guerreiro, atirador), sons personalizados e menu interativo. Desenvolvido com Pygame.
