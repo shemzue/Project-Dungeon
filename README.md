@@ -88,6 +88,7 @@ Project-Dungeon/
 ├── weapon.py             # Armas e efeitos visuais
 ├── sound.py              # Sons e música de fundo
 ├── object_handler.py     # NPCs e objetos interativos
+├── bject_renderer.py     # Renderização de objetos 
 ├── menu.py               # Menu principal
 ├── setup.py              # Setup automático (env + execução)
 ├── requirements.txt      # Dependências do projeto
